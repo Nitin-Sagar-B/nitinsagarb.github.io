@@ -1,0 +1,274 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; /* Change the font family to Roboto */
+    line-height: 1.5;
+    background-color: #f1f1f1; /* Default light theme background color */
+    color: #333; /* Default light theme text color */
+  }
+  
+  header {
+    background-color: transparent; /* Set header background to transparent */
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+    position: relative;
+    z-index: 1; /* Ensure header is above the particle background */
+  }
+
+  header::after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 2px;
+    background-color: #fff;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    animation: lineAnimation 5s infinite;
+  }
+
+  @keyframes lineAnimation {
+    0% { width: 20%; }
+    50% { width: 100%; }
+    100% { width: 20%; }
+  }
+  
+  footer {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    background-color: transparent; /* Set footer background to transparent */
+    color: #fff;
+    padding: 10px;
+    position: relative;
+    z-index: 1; /* Ensure footer is above the particle background */
+  }
+  
+  main {
+    display: grid;
+    min-height: calc(100vh - 70px); /* Subtract header and footer height */
+    grid-template-columns: 1fr 3fr;
+    grid-gap: 20px;
+    padding: 20px;
+    grid-template-areas:
+      "objective education"
+      "skills skills"
+      "softskills cocurricular"
+      "interest experience";
+    background-color: transparent;
+    color: #fff; /* Set text color of grid area contents to white */
+    position: relative;
+    z-index: 2; /* Ensure main content is above the particle background */
+  }
+  
+  .skills {
+    grid-area: skills;
+    background-color: transparent; /* Set grid area background to transparent */
+  }
+
+  .skills-icons {
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+      margin: 25px;
+  }
+
+  .skill-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+  }
+
+  .skill-item i {
+      font-size: 40px;
+      margin-bottom: 10px;
+  }
+
+  .skill-item span {
+        font-size: 18px;
+        text-align: center;
+  }
+
+  .objective {
+    grid-area: objective;
+    background-color: transparent;
+    text-align: justify;
+  }
+  
+  .education {
+    grid-area: education;
+    background-color: transparent; /* Set grid area background to transparent */
+  }
+
+  .education-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+          }
+        
+  .education-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 50px;
+      height: 50px;
+      background-color: #333;
+      color: #fff;
+      border-radius: 50%;
+      margin-right: 10px;
+ }       
+
+  .education-icon i {
+      font-size: 24px;
+  }
+  
+  .education-details {
+      flex: 1;
+  }
+
+  .education-details h3 {
+      margin: 0;
+  }
+
+  .education-details p {
+      margin: 5px 0;
+  }
+
+  .experience {
+    grid-area: experience;
+    background-color: transparent; /* Set grid area background to transparent */
+  }
+
+  .interest {
+    grid-area: interest;
+    background-color: transparent; /* Set grid area background to transparent */
+  }
+
+  .interest-icons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.interest-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100px;
+}
+
+.interest-item i {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.interest-item span {
+  text-align: center;
+  font-size: 12px;
+}
+
+  .cocurricular {
+    grid-area: cocurricular;
+    background-color: transparent; /* Set grid area background to transparent */
+  }
+  .cocurricular-items {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.cocurricular-item {
+  display: flex;
+  align-items: flex-start;
+}
+
+.cocurricular-item i {
+  margin: 10px;
+  font-size: 30px;
+}
+
+.cocurricular-item span {
+  display: inline-block;
+  margin: 10px;
+}
+
+  .softskills {
+    grid-area: softskills;
+    background-color: transparent; /* Set grid area background to transparent */
+  }
+
+  .softskills-icons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.softskill-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100px;
+}
+
+.softskill-item i {
+  font-size: 40px;
+  margin: 10px;
+}
+
+.softskill-item span {
+  text-align: center;
+  font-size: 12px;
+}
+
+  .section {
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.5); /* Set background color with transparency */
+    position: relative;
+    z-index: 3; /* Set z-index to be above particles */
+  }
+  
+  h2 {
+    margin: 0;
+    font-size: 24px;
+  }
+  
+  p {
+    margin: 0;
+  }
+
+  li {
+    margin-bottom: 5px;
+  }
+
+  .footer-icons {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 10px;
+    background-color: #333;
+  }
+
+  .footer-icons a {
+    display: inline-block;
+    margin-right: 10px;
+    color: #fff;
+    font-size: 24px;
+    text-decoration: none;
+  }
+
+  #particles-js {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    z-index: -1;
+  }
