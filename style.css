@@ -1,42 +1,18 @@
-body {
+body, html {
     margin: 0;
     padding: 0;
-    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; /* Change the font family to Roboto */
-    line-height: 1.5;
-    background-color: #f1f1f1; /* Default light theme background color */
-    color: #333; /* Default light theme text color */
-  }
-  
-  header {
-    background-color: transparent; /* Set header background to transparent */
-    color: #fff;
-    padding: 10px;
-    text-align: center;
-    position: relative;
-    z-index: 1; /* Ensure header is above the particle background */
-  }
+    height: 100%;
+    font-family: Arial, sans-serif;
+    color: #ffffff;
+    text-align: justify;
+}
 
-  header::after {
-    content: '';
-    display: block;
-    width: 100%;
-    height: 2px;
-    background-color: #fff;
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    margin: auto;
-    animation: lineAnimation 5s infinite;
-  }
+.header{
+    margin:auto;
+    padding-top: 20px;
+}
 
-  @keyframes lineAnimation {
-    0% { width: 20%; }
-    50% { width: 100%; }
-    100% { width: 20%; }
-  }
-  
-  footer {
+footer {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
@@ -46,208 +22,8 @@ body {
     position: relative;
     z-index: 1; /* Ensure footer is above the particle background */
   }
-  
-  main {
-    display: grid;
-    min-height: calc(100vh - 70px); /* Subtract header and footer height */
-    grid-template-columns: 1fr 3fr;
-    grid-gap: 20px;
-    padding: 20px;
-    grid-template-areas:
-      "objective education"
-      "skills skills"
-      "softskills cocurricular"
-      "interest experience";
-    background-color: transparent;
-    color: #fff; /* Set text color of grid area contents to white */
-    position: relative;
-    z-index: 2; /* Ensure main content is above the particle background */
-  }
-  
-  .skills {
-    grid-area: skills;
-    background-color: transparent; /* Set grid area background to transparent */
-  }
 
-  .skills-icons {
-      display: flex;
-      justify-content: space-evenly;
-      align-items: center;
-      margin: 25px;
-  }
-
-  .skill-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-  }
-
-  .skill-item i {
-      font-size: 40px;
-      margin-bottom: 10px;
-  }
-
-  .skill-item span {
-        font-size: 18px;
-        text-align: center;
-  }
-
-  .objective {
-    grid-area: objective;
-    background-color: transparent;
-    text-align: justify;
-  }
-  
-  .education {
-    grid-area: education;
-    background-color: transparent; /* Set grid area background to transparent */
-  }
-
-  .education-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 20px;
-          }
-        
-  .education-icon {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 50px;
-      height: 50px;
-      background-color: #333;
-      color: #fff;
-      border-radius: 50%;
-      margin-right: 10px;
- }       
-
-  .education-icon i {
-      font-size: 24px;
-  }
-  
-  .education-details {
-      flex: 1;
-  }
-
-  .education-details h3 {
-      margin: 0;
-  }
-
-  .education-details p {
-      margin: 5px 0;
-  }
-
-  .experience {
-    grid-area: experience;
-    background-color: transparent; /* Set grid area background to transparent */
-  }
-
-  .interest {
-    grid-area: interest;
-    background-color: transparent; /* Set grid area background to transparent */
-  }
-
-  .interest-icons {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 20px;
-}
-
-.interest-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100px;
-}
-
-.interest-item i {
-  font-size: 24px;
-  margin-bottom: 10px;
-}
-
-.interest-item span {
-  text-align: center;
-  font-size: 12px;
-}
-
-  .cocurricular {
-    grid-area: cocurricular;
-    background-color: transparent; /* Set grid area background to transparent */
-  }
-  .cocurricular-items {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.cocurricular-item {
-  display: flex;
-  align-items: flex-start;
-}
-
-.cocurricular-item i {
-  margin: 10px;
-  font-size: 30px;
-}
-
-.cocurricular-item span {
-  display: inline-block;
-  margin: 10px;
-}
-
-  .softskills {
-    grid-area: softskills;
-    background-color: transparent; /* Set grid area background to transparent */
-  }
-
-  .softskills-icons {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 20px;
-}
-
-.softskill-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100px;
-}
-
-.softskill-item i {
-  font-size: 40px;
-  margin: 10px;
-}
-
-.softskill-item span {
-  text-align: center;
-  font-size: 12px;
-}
-
-  .section {
-    padding: 20px;
-    background-color: rgba(0, 0, 0, 0.5); /* Set background color with transparency */
-    position: relative;
-    z-index: 3; /* Set z-index to be above particles */
-  }
-  
-  h2 {
-    margin: 0;
-    font-size: 24px;
-  }
-  
-  p {
-    margin: 0;
-  }
-
-  li {
-    margin-bottom: 5px;
-  }
-
-  .footer-icons {
+.footer-icons {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
@@ -255,20 +31,344 @@ body {
     background-color: #333;
   }
 
-  .footer-icons a {
+.footer-icons a {
     display: inline-block;
+    align-items: center;
     margin-right: 10px;
     color: #fff;
     font-size: 24px;
     text-decoration: none;
   }
-
-  #particles-js {
+#particles-js {
     position: fixed;
-    top: 0;
-    left: 0;
     width: 100%;
     height: 100%;
-    background-color: #000;
+    background-color: #000000;
     z-index: -1;
-  }
+}
+
+/* Keyframes for line animation */
+@keyframes expandShrink {
+    0% {
+        transform: scaleX(0.2);
+        opacity: 0.5;
+    }
+    50% {
+        transform: scaleX(1);
+        opacity: 1;
+    }
+    100% {
+        transform: scaleX(0.2);
+        opacity: 0.5;
+    }
+}
+
+/* Styling for the line */
+.line {
+    width: auto; /* Adjust width as needed */
+    height: 2px; /* Line thickness */
+    background-color: #ffffff; /* Line color */
+    margin: 10px auto; /* Center the line */
+    animation: expandShrink 2s infinite; /* Apply animation */
+    transform-origin: center; /* Ensure scaling is centered */
+}
+
+
+.container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 20px;
+    width: 90%;
+    margin:auto;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.item {
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.1); /* Transparent background */
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+
+
+h1 {
+    margin-top: 0;
+    font-size: 24px;
+}
+
+/* Education CSS */
+
+.education-container {
+    display: flex;
+    justify-content: space-between; /* Distributes the items evenly */
+    gap: 20px; /* Adds some space between the two items */
+}
+
+.education-item {
+    flex: 1; /* Makes each item take up half the space */
+    display: flex;
+    align-items: center;
+}
+
+.education-item i {
+    margin-right: 10px; /* Space between icon and text */
+}
+
+/* Tech stack CSS*/
+
+.tech-category {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.tech-category h3 {
+    font-size: 18px;
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.tech-items {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.tech-item {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+}
+
+.tech-item i {
+    margin-right: 5px;
+    font-size: 24px;
+}
+
+
+/* Projects CSS*/
+.projects-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.project {
+    flex: 1;
+    min-width: 300px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.1); /* Transparent background */
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.project h2 {
+    font-size: 20px;
+    margin: 0;
+}
+
+.project h2 i {
+    margin-left: 10px;
+}
+
+.project ul {
+    list-style: none;
+    padding: 0;
+}
+
+.project ul li {
+    margin-bottom: 10px;
+}
+
+/* Soft skills CSS*/
+.soft-skills-list {
+    display: block;
+    align-items: center;
+    justify-content: space-around;
+    gap: 15px;
+}
+
+.skill {
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+}
+
+.skill i {
+    margin-right: 10px;
+    color: #ffffff; /* Adjust color if needed */
+}
+
+
+/* Certification CSS*/
+.certifications-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.certification {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+}
+
+.certification i {
+    margin-right: 10px;
+    color: #ffffff; /* Adjust color if needed */
+}
+
+.certification div {
+    line-height: 1.4;
+}
+
+/*Interests CSS*/
+.interests-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Adjust the gap between items */
+}
+
+.interest {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+}
+
+.interest i {
+    margin-right: 10px;
+    color: #ffffff; /* Adjust color if needed */
+}
+
+.interest span {
+    line-height: 1.4;
+}
+
+/*Publication CSS*/
+.publications-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.publication {
+    display: flex;
+    align-items: flex-start;
+    font-size: 16px;
+}
+
+.publication i {
+    margin-right: 10px;
+    color: #ffffff; /* Adjust color if needed */
+}
+
+.publication div {
+    line-height: 1.4;
+}
+
+/*Language CSS*/
+.languages-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Adjust the gap between items */
+}
+
+.language {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+}
+
+.language i {
+    margin-right: 10px;
+    color: #ffffff; /* Adjust color if needed */
+}
+
+.language span {
+    line-height: 1.4;
+}
+/*Activities CSS*/
+.co-scholastic-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Adjust the gap between items */
+}
+
+.activity {
+    display: flex;
+    align-items: flex-start;
+    font-size: 16px;
+}
+
+.activity i {
+    margin-right: 10px;
+    color: #ffffff; /* Adjust color if needed */
+}
+
+.activity div {
+    line-height: 1.4;
+}
+
+
+/* Keyframe for fade-in animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px); /* Optional: adds a slight upward movement */
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Initial state for elements before they are in view */
+.animate {
+    opacity: 0;
+    transform: translateY(20px); /* Optional */
+    transition: opacity 1s ease, transform 1s ease;
+}
+
+/* State of elements once they are in view */
+.animate.visible {
+    opacity: 1;
+    transform: translateY(0);
+    animation: fadeIn 1s forwards;
+}
+
+
+
+/* Layout configuration */
+.objective { grid-column: 1; grid-row: 1; }
+.education { grid-column: 2 / span 2; grid-row: 1; }
+.internship { grid-column: 1; grid-row: 2; }
+.tech-stack { grid-column: 2 / span 2; grid-row: 2; }
+.projects { grid-column: 1 / span 3; grid-row: 3; }
+.soft-skills { grid-column: 1; grid-row: 4; }
+.certifications { grid-column: 2 / span 2; grid-row: 4; }
+.interests { grid-column: 1; grid-row: 5; }
+.publications { grid-column: 2 / span 2; grid-row: 5; }
+.languages { grid-column: 1; grid-row: 6; }
+.co-scholastic { grid-column: 2 / span 2; grid-row: 6; }
+
+@media (max-width: 768px) {
+    .container {
+        display: flex;
+        flex-direction: column;
+        gap: 20px; /* Add space between items */
+    }
+
+    .item {
+        width: 100%; /* Ensure each item takes up the full width */
+        box-sizing: border-box; /* Include padding and border in the element's width and height */
+    }
+
+    .animate {
+        /* Optional: Adjust for mobile view if needed */
+        transform: translateY(10px); /* Reduce the movement for smaller screens */
+    }
+}
