@@ -371,4 +371,58 @@ h1 {
         /* Optional: Adjust for mobile view if needed */
         transform: translateY(10px); /* Reduce the movement for smaller screens */
     }
+
+    .education-container {
+        display: flex;
+        flex-direction: column; /* Stack items vertically */
+        gap: 20px; /* Adds space between the two items */
+    }
+    
+    .education-item {
+        display: flex;
+        align-items: center;
+    }
+    
+    .education-item i {
+        margin-right: 10px; /* Space between icon and text */
+    }
+
+    .tech-category {
+        margin-bottom: 20px; /* Add space between categories */
+        padding: 5px;
+        display: block;
+    }
+    
+    .tech-category h3 {
+        font-size: 16px;
+        margin-bottom: 5px; /* Space between heading and items */
+        display: block; /* Ensure the heading is on its own line */
+    }
+    
+    .tech-items {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px; /* Add space between items */
+    }
+    
+    .tech-item {
+        display: flex;
+        align-items: center;
+        margin-right: 10px; /* Space between items */
+        font-size: 14px; /* Adjust font size */
+    }
+    
+    .tech-item i {
+        margin-right: 5px;
+        font-size: 18px; /* Adjust icon size */
+    }
+    
+
+    body, html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        font-family: Arial, sans-serif;
+        color: #ffffff;
+    }
 }
