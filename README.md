@@ -100,8 +100,6 @@ I am an Engineering undergraduate and tech enthusiast specializing in AI and dat
 
 Feel free to connect with me through the following platforms:
 
-- [LinkedIn](https://www.linkedin.com/in/nitin-sagar-boyeena)
-- [GitHub](https://github.com/nitin-sagar-b)
-- [Email](mailto:nitinsagar2004@example.com)
+[LinkedIn](https://www.linkedin.com/in/nitin-sagar-boyeena) | [GitHub](https://github.com/nitin-sagar-b)| [Email](mailto:nitinsagar2004@example.com)
 
 ---
