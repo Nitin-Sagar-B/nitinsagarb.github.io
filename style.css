@@ -1,438 +1,651 @@
-body, html {
+:root {
+    /* Pantone Dark / Aesthetic Palette */
+    --bg-dark: #0B0C10;
+    /* Deep Void */
+    --bg-sidebar: #13141A;
+    --bg-panel: #1A1C23;
+
+    --text-main: #C5C6C7;
+    /* Silver/Off-White */
+    --text-muted: #6B6F7A;
+
+    --accent-primary: #6667AB;
+    /* Pantone Very Peri - Soft Violet */
+    --accent-secondary: #FFBE98;
+    /* Pantone Peach Fuzz */
+
+    --success: #67E480;
+    /* Muted tech green */
+    --warn: #E4C067;
+    --error: #E46767;
+}
+
+* {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    height: 100%;
-    font-family: Arial, sans-serif;
-    color: #ffffff;
-    text-align: justify;
 }
 
-.header{
-    margin:auto;
-    padding-top: 20px;
-    z-index: 2;
+/* We make the body height MASSIVE so the user can scroll,
+   but we only visually show the .ide-container pinned to the screen */
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    font-family: 'Space Grotesk', sans-serif;
+    height: 1100vh;
+    /* 11 scrollable sections (0 to 10) */
+    overflow-x: hidden;
 }
 
-footer {
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    background-color: transparent; /* Set footer background to transparent */
-    color: #fff;
-    padding: 10px;
-    position: relative;
-    z-index: 1; /* Ensure footer is above the particle background */
-  }
-
-.footer-icons {
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    padding: 10px;
-    background-color: #333;
-  }
-
-.footer-icons a {
-    display: inline-block;
-    align-items: center;
-    margin-right: 10px;
-    color: #fff;
-    font-size: 24px;
-    text-decoration: none;
-  }
-
-
-#particles-js {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    background-color: #000000;
-    z-index: 0;
+.mono {
+    font-family: 'JetBrains Mono', monospace;
 }
 
-/* Keyframes for line animation */
-@keyframes expandShrink {
-    0% {
-        transform: scaleX(0.2);
-        opacity: 0.5;
-    }
-    50% {
-        transform: scaleX(1);
-        opacity: 1;
-    }
+/* SPINNER ANIMATION */
+@keyframes spin {
     100% {
-        transform: scaleX(0.2);
-        opacity: 0.5;
+        transform: rotate(360deg);
     }
 }
 
-/* Styling for the line */
-.line {
-    width: auto; /* Adjust width as needed */
-    height: 2px; /* Line thickness */
-    background-color: #ffffff; /* Line color */
-    margin: 10px auto; /* Center the line */
-    animation: expandShrink 2s infinite; /* Apply animation */
-    transform-origin: center; /* Ensure scaling is centered */
+.fa-spinner {
+    animation: spin 1s linear infinite;
+    margin-right: 8px;
+    color: var(--accent-secondary);
 }
 
-
-.container{
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-gap: 20px;
-    width: 90%;
-    margin:auto;
-    padding-top: 20px;
-    padding-bottom: 20px;
-}
-
-.item {
-    padding: 20px;
-    background: rgba(255, 255, 255, 0.1); /* Transparent background */
-    border-radius: 10px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-    transition: transform 0.3s, box-shadow 0.3s;
-}
-
-
-
-h1 {
-    margin-top: 0;
-    font-size: 24px;
-}
-
-/* Education CSS */
-
-.education-container {
+/* ============================== */
+/* IDE LAYOUT                     */
+/* ============================== */
+.ide-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
     display: flex;
-    justify-content: space-between; /* Distributes the items evenly */
-    gap: 20px; /* Adds some space between the two items */
+    flex-direction: column;
+    background: var(--bg-dark);
+    z-index: 10;
 }
 
-.education-item {
-    flex: 1; /* Makes each item take up half the space */
+/* HEADER */
+.ide-header {
+    height: 35px;
+    background: var(--bg-sidebar);
     display: flex;
     align-items: center;
-}
-
-.education-item i {
-    margin-right: 10px; /* Space between icon and text */
-}
-
-/* Tech stack CSS*/
-
-.tech-category {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-}
-
-.tech-category h3 {
-    font-size: 18px;
-    margin-right: 10px;
-    display: flex;
-    align-items: center;
-}
-
-.tech-items {
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.tech-item {
-    display: flex;
-    align-items: center;
-    margin-right: 20px;
-}
-
-.tech-item i {
-    margin-right: 5px;
-    font-size: 24px;
-}
-
-
-/* Projects CSS*/
-.projects-container {
-    display: flex;
     justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 20px;
+    padding: 0 15px;
+    border-bottom: 1px solid var(--bg-panel);
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-family: 'JetBrains Mono', monospace;
 }
 
-.project {
+.window-controls {
+    display: flex;
+    gap: 8px;
+}
+
+.window-controls span {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #444;
+}
+
+.window-controls span:nth-child(1) {
+    background: #ED6A5E;
+}
+
+.window-controls span:nth-child(2) {
+    background: #F4BF4F;
+}
+
+.window-controls span:nth-child(3) {
+    background: #61C554;
+}
+
+.window-status i {
+    color: var(--success);
+    margin-right: 5px;
+}
+
+/* BODY */
+.ide-body {
     flex: 1;
-    min-width: 300px;
-    padding: 20px;
-    background: rgba(255, 255, 255, 0.1); /* Transparent background */
-    border-radius: 10px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    display: flex;
+    overflow: hidden;
+    /* prevents inner scrolling that breaks the main scroll illusion */
 }
 
-.project h2 {
-    font-size: 20px;
-    margin: 0;
+/* SIDEBAR */
+.sidebar {
+    width: 250px;
+    background: var(--bg-sidebar);
+    border-right: 1px solid var(--bg-panel);
+    display: flex;
+    flex-direction: column;
+    font-family: 'Space Grotesk', sans-serif;
 }
 
-.project h2 i {
-    margin-left: 10px;
+.sidebar-title {
+    padding: 10px 15px;
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    color: var(--text-muted);
 }
 
-.project ul {
+.explorer-header {
+    padding: 5px 15px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-main);
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.file-tree,
+.sub-tree {
     list-style: none;
-    padding: 0;
 }
 
-.project ul li {
-    margin-bottom: 10px;
+.sub-tree {
+    padding-left: 25px;
+    margin-top: 5px;
+    width: 100%;
 }
 
-/* Soft skills CSS*/
-.soft-skills-list {
+.file-tree li {
+    padding: 6px 15px;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-left: 2px solid transparent;
+    transition: all 0.2s;
+    flex-wrap: wrap;
+}
+
+.file-tree li i {
+    color: var(--accent-primary);
+    opacity: 0.7;
+}
+
+.file-tree li.file i {
+    color: var(--text-main);
+}
+
+.file-tree li:hover {
+    background: rgba(255, 255, 255, 0.03);
+    color: var(--text-main);
+}
+
+.file-tree li.active {
+    background: rgba(102, 103, 171, 0.1);
+    color: var(--text-main);
+    border-left-color: var(--accent-primary);
+}
+
+.file-tree li.active i {
+    opacity: 1;
+}
+
+/* TELEMETRY SIDEBAR */
+.telemetry-sidebar {
+    width: 220px;
+    background: var(--bg-sidebar);
+    border-left: 1px solid var(--bg-panel);
+    display: flex;
+    flex-direction: column;
+    font-family: 'Space Grotesk', sans-serif;
+}
+
+.telemetry-header {
+    padding: 10px 15px;
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    color: var(--text-muted);
+    border-bottom: 1px solid var(--bg-panel);
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.telemetry-header i {
+    margin-right: 5px;
+    color: var(--accent-secondary);
+}
+
+.telemetry-content {
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    overflow-y: auto;
+}
+
+.tel-block {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.tel-label {
+    font-size: 0.75rem;
+    color: var(--text-main);
+    font-family: 'JetBrains Mono', monospace;
+}
+
+.tel-bar-bg {
+    height: 8px;
+    background: var(--bg-panel);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.tel-bar {
+    height: 100%;
+    background: var(--success);
+    transition: width 0.3s ease-out;
+}
+
+.tel-val {
+    font-size: 0.75rem;
+    font-family: 'JetBrains Mono', monospace;
+}
+
+.terminal-mini-log {
+    margin-top: 5px;
+    padding-top: 15px;
+    border-top: 1px dashed var(--bg-panel);
+}
+
+/* MAIN TERMINAL */
+.terminal-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: var(--bg-dark);
+}
+
+.terminal-tabs {
+    height: 35px;
+    display: flex;
+    background: var(--bg-sidebar);
+}
+
+.tab {
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.8rem;
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--text-muted);
+    background: var(--bg-panel);
+    border-right: 1px solid var(--bg-dark);
+}
+
+.tab.active {
+    background: var(--bg-dark);
+    color: var(--text-main);
+    border-top: 2px solid var(--accent-primary);
+}
+
+.terminal-viewport {
+    flex: 1;
+    padding: 30px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    overflow-y: auto;
+    /* just in case the history gets long, but we'll clear it */
+    position: relative;
+}
+
+/* CRT Overlay Effect */
+.terminal-viewport::after {
+    content: " ";
     display: block;
-    align-items: center;
-    justify-content: space-around;
-    gap: 15px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+    z-index: 2;
+    background-size: 100% 2px, 3px 100%;
+    pointer-events: none;
+    opacity: 0.4;
 }
 
-.skill {
+/* COMMAND LINE */
+.command-line {
+    margin-top: 15px;
     display: flex;
-    align-items: center;
-    font-size: 18px;
+    gap: 10px;
+    color: var(--text-main);
 }
 
-.skill i {
-    margin-right: 10px;
-    color: #ffffff; /* Adjust color if needed */
+.user {
+    color: var(--accent-secondary);
 }
 
-
-/* Certification CSS*/
-.certifications-list {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+.dir {
+    color: var(--accent-primary);
 }
 
-.certification {
-    display: flex;
-    align-items: center;
-    font-size: 16px;
+.cursor {
+    display: inline-block;
+    width: 8px;
+    height: 16px;
+    background: var(--text-main);
+    vertical-align: middle;
+    margin-left: 2px;
+    animation: blink 1s step-end infinite;
 }
 
-.certification i {
-    margin-right: 10px;
-    color: #ffffff; /* Adjust color if needed */
+@keyframes blink {
+    50% {
+        opacity: 0;
+    }
 }
 
-.certification div {
-    line-height: 1.4;
+/* GHOST TEXT */
+.ghost-text {
+    color: var(--text-muted);
+    font-style: italic;
+    margin-left: 8px;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    user-select: none;
 }
 
-/*Interests CSS*/
-.interests-list {
-    display: flex;
-    flex-direction: column;
-    gap: 10px; /* Adjust the gap between items */
+/* OUTPUT BLOCKS */
+#terminal-history {
+    margin-bottom: 20px;
 }
 
-.interest {
-    display: flex;
-    align-items: center;
-    font-size: 16px;
+.output-block {
+    margin-bottom: 25px;
+    animation: fadeUp 0.3s ease forwards;
 }
 
-.interest i {
-    margin-right: 10px;
-    color: #ffffff; /* Adjust color if needed */
-}
-
-.interest span {
-    line-height: 1.4;
-}
-
-/*Publication CSS*/
-.publications-list {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-.publication {
-    display: flex;
-    align-items: flex-start;
-    font-size: 16px;
-}
-
-.publication i {
-    margin-right: 10px;
-    color: #ffffff; /* Adjust color if needed */
-}
-
-.publication div {
-    line-height: 1.4;
-}
-
-/*Language CSS*/
-.languages-list {
-    display: flex;
-    flex-direction: column;
-    gap: 10px; /* Adjust the gap between items */
-}
-
-.language {
-    display: flex;
-    align-items: center;
-    font-size: 16px;
-}
-
-.language i {
-    margin-right: 10px;
-    color: #ffffff; /* Adjust color if needed */
-}
-
-.language span {
-    line-height: 1.4;
-}
-/*Activities CSS*/
-.co-scholastic-list {
-    display: flex;
-    flex-direction: column;
-    gap: 15px; /* Adjust the gap between items */
-}
-
-.activity {
-    display: flex;
-    align-items: flex-start;
-    font-size: 16px;
-}
-
-.activity i {
-    margin-right: 10px;
-    color: #ffffff; /* Adjust color if needed */
-}
-
-.activity div {
-    line-height: 1.4;
-}
-
-
-/* Keyframe for fade-in animation */
-@keyframes fadeIn {
+@keyframes fadeUp {
     from {
         opacity: 0;
-        transform: translateY(20px); /* Optional: adds a slight upward movement */
+        transform: translateY(10px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
     }
 }
 
-/* Initial state for elements before they are in view */
-.animate {
-    opacity: 0;
-    transform: translateY(20px); /* Optional */
-    transition: opacity 1s ease, transform 1s ease;
+.sys-out {
+    color: var(--text-muted);
+    font-style: italic;
+    margin-bottom: 10px;
 }
 
-/* State of elements once they are in view */
-.animate.visible {
-    opacity: 1;
-    transform: translateY(0);
-    animation: fadeIn 1s forwards;
+.sys-warn {
+    color: var(--warn);
+    margin-bottom: 10px;
 }
 
+.glow-title {
+    color: var(--text-main);
+    font-size: 2rem;
+    margin-bottom: 5px;
+}
 
+.role-text {
+    color: var(--accent-primary);
+    margin-bottom: 15px;
+}
 
-/* Layout configuration */
-.header { grid-column: 1 / span 3; grid-row: 1; }
-.objective { grid-column: 1; grid-row: 2; }
-.education { grid-column: 2 / span 2; grid-row: 2; }
-.internship { grid-column: 1; grid-row: 3; }
-.tech-stack { grid-column: 2 / span 2; grid-row: 3; }
-.projects { grid-column: 1 / span 3; grid-row: 4; }
-.soft-skills { grid-column: 1; grid-row: 5; }
-.certifications { grid-column: 2 / span 2; grid-row: 5; }
-.interests { grid-column: 1; grid-row: 6; }
-.publications { grid-column: 2 / span 2; grid-row: 6; }
-.languages { grid-column: 1; grid-row: 7; }
-.co-scholastic { grid-column: 2 / span 2; grid-row: 7; }
+/* Tables & Data */
+.term-table {
+    border-collapse: collapse;
+    width: 100%;
+    max-width: 800px;
+}
 
-@media (max-width: 768px) {
-    .container {
-        display: flex;
+.term-table td {
+    padding: 8px;
+    border-bottom: 1px dashed var(--bg-panel);
+}
+
+.term-table .key {
+    color: var(--accent-secondary);
+    width: 150px;
+}
+
+/* Flex output */
+.output-flex {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.term-card {
+    border: 1px solid var(--bg-panel);
+    background: rgba(255, 255, 255, 0.02);
+    padding: 15px;
+    flex: 1;
+    min-width: 250px;
+    border-radius: 4px;
+}
+
+.highlight-card {
+    border-color: rgba(102, 103, 171, 0.4);
+    background: rgba(102, 103, 171, 0.05);
+}
+
+.term-card h3 {
+    color: var(--text-main);
+    margin-bottom: 8px;
+    font-size: 1rem;
+}
+
+.badge {
+    display: inline-block;
+    padding: 2px 6px;
+    font-size: 0.7rem;
+    background: var(--bg-panel);
+    color: var(--accent-primary);
+    margin-bottom: 10px;
+    border-radius: 2px;
+}
+
+/* Lists */
+.bullet-list {
+    margin-left: 20px;
+}
+
+.no-bullet {
+    list-style: none;
+    margin-left: 0;
+}
+
+.bullet-list li {
+    margin-bottom: 8px;
+}
+
+.success {
+    color: var(--success);
+}
+
+.dim {
+    color: var(--text-muted);
+}
+
+.cert-link {
+    color: var(--text-main);
+    text-decoration: underline;
+    text-decoration-color: var(--accent-primary);
+    text-underline-offset: 4px;
+    transition: color 0.2s;
+}
+
+.cert-link:hover {
+    color: var(--accent-secondary);
+    text-decoration-color: var(--accent-secondary);
+}
+
+/* Experience */
+.exp-row {
+    border-left: 2px solid var(--accent-primary);
+    padding-left: 15px;
+    margin-bottom: 15px;
+}
+
+.exp-row .date {
+    display: block;
+    color: var(--accent-secondary);
+    font-size: 0.8rem;
+    margin-bottom: 5px;
+}
+
+.exp-row .title {
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.exp-row .org {
+    color: var(--text-muted);
+}
+
+/* JSON */
+.json-out {
+    color: var(--text-main);
+    background: rgba(0, 0, 0, 0.2);
+    padding: 15px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+}
+
+/* Tags */
+.tags-container {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.c-tag {
+    border: 1px solid var(--accent-secondary);
+    color: var(--accent-secondary);
+    padding: 4px 10px;
+    font-size: 0.8rem;
+    border-radius: 20px;
+}
+
+/* FOOTER */
+.ide-footer {
+    height: 30px;
+    background: var(--accent-primary);
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 15px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    font-family: 'Space Grotesk', sans-serif;
+}
+
+.footer-left,
+.footer-right {
+    display: flex;
+    gap: 20px;
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 800px) {
+
+    /* Header layout changes */
+    #mobile-nav-toggle {
+        display: block !important;
+    }
+
+    .window-controls {
+        display: none !important;
+    }
+
+    .window-title {
+        display: none !important;
+    }
+
+    /* Convert Explorer sidebar to an offcanvas overlay */
+    .sidebar {
+        display: flex !important;
+        position: fixed;
+        left: -260px;
+        top: 35px;
+        /* below header */
+        height: calc(100vh - 65px);
+        z-index: 200;
+        transition: left 0.3s ease;
+        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.8);
+    }
+
+    .sidebar.mobile-open {
+        left: 0;
+    }
+
+    /* Convert Telemetry sidebar to an right offcanvas overlay */
+    .telemetry-sidebar {
+        display: none !important;
+    }
+
+    .telemetry-sidebar.open {
+        display: flex !important;
+        position: fixed;
+        right: 0;
+        top: 35px;
+        height: calc(100vh - 65px);
+        z-index: 200;
+        box-shadow: -2px 0 10px rgba(0, 0, 0, 0.8);
+    }
+
+    .terminal-viewport {
+        padding: 15px;
+        /* smaller padding */
+        font-size: 0.85rem;
+        /* slightly smaller text */
+    }
+
+    .glow-title {
+        font-size: 1.5rem;
+    }
+
+    .ide-footer {
+        font-size: 0.65rem;
+    }
+
+    .footer-right span:nth-child(1),
+    .footer-right span:nth-child(2) {
+        display: none;
+    }
+
+    .output-flex {
         flex-direction: column;
-        gap: 20px; /* Add space between items */
+        gap: 15px;
     }
 
-    .header{
-        margin:auto;
-        padding-top: 20px;
-        z-index: 2;
+    .json-out {
+        overflow-x: auto;
+        font-size: 0.75rem;
     }
 
-    .item {
-        width: 100%; /* Ensure each item takes up the full width */
-        box-sizing: border-box; /* Include padding and border in the element's width and height */
-    }
-
-    .animate {
-        /* Optional: Adjust for mobile view if needed */
-        transform: translateY(10px); /* Reduce the movement for smaller screens */
-    }
-
-    .education-container {
-        display: flex;
-        flex-direction: column; /* Stack items vertically */
-        gap: 20px; /* Adds space between the two items */
-    }
-    
-    .education-item {
-        display: flex;
-        align-items: center;
-    }
-    
-    .education-item i {
-        margin-right: 10px; /* Space between icon and text */
-    }
-
-    .tech-category {
-        margin-bottom: 20px; /* Add space between categories */
-        padding: 5px;
+    .term-table {
         display: block;
-    }
-    
-    .tech-category h3 {
-        font-size: 16px;
-        margin-bottom: 5px; /* Space between heading and items */
-        display: block; /* Ensure the heading is on its own line */
-    }
-    
-    .tech-items {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px; /* Add space between items */
-    }
-    
-    .tech-item {
-        display: flex;
-        align-items: center;
-        margin-right: 10px; /* Space between items */
-        font-size: 14px; /* Adjust font size */
-    }
-    
-    .tech-item i {
-        margin-right: 5px;
-        font-size: 18px; /* Adjust icon size */
-    }
-    
-
-    body, html {
-        margin: 0;
-        padding: 0;
-        height: 100%;
-        font-family: Arial, sans-serif;
-        color: #ffffff;
+        overflow-x: auto;
     }
 }
