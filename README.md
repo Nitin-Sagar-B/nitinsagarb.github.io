@@ -2,7 +2,7 @@
 
 > **Backend Engineer · AI Engineer · Open Source Builder**
 
-[![Live Portfolio](https://img.shields.io/badge/Live%20Portfolio-Visit%20Now-6667AB?style=for-the-badge&logo=github)](https://nitin-sagar-b.github.io/nitinsagarb.github.io/)
+[![Live Portfolio](https://img.shields.io/badge/Live%20Portfolio-Visit%20Now-6667AB?style=for-the-badge&logo=github)](https://nitin-sagar-b.github.io/portfolio/)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-nitin--sagar--boyeena-0A66C2?style=for-the-badge&logo=linkedin)](https://www.linkedin.com/in/nitin-sagar-boyeena)
 [![GitHub](https://img.shields.io/badge/GitHub-nitin--sagar--b-181717?style=for-the-badge&logo=github)](https://github.com/nitin-sagar-b)
 [![Email](https://img.shields.io/badge/Email-nitinsagar2004%40gmail.com-D14836?style=for-the-badge&logo=gmail)](mailto:nitinsagar2004@gmail.com)
