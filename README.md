@@ -13,7 +13,7 @@
 
 This repository hosts my personal portfolio — an immersive, **IDE-themed single-page application** that simulates a full terminal/OS environment in the browser. Rather than a traditional scrolling portfolio, navigation is driven by scroll position, dynamically rendering content as terminal command output with typewriter animations, agent thinking steps, and an ambient audio engine.
 
-**Live:** https://nitin-sagar-b.github.io/nitinsagarb.github.io/
+**Live:** https://nitin-sagar-b.github.io/portfolio/
 
 ---
 
