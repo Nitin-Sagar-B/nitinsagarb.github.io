@@ -30,6 +30,8 @@ This repository hosts my personal portfolio — an immersive, **IDE-themed singl
   - [Publications](#publications)
   - [Sparkience AI](#sparkience-ai)
   - [Education](#education)
+  - [Languages](#languages)
+  - [Interests](#interests)
 - [Contact](#contact)
 - [License](#license)
 
@@ -37,7 +39,7 @@ This repository hosts my personal portfolio — an immersive, **IDE-themed singl
 
 ## About Me
 
-I am a **Backend Engineer and AI Engineer** currently working at **Accenture**, building production-grade Spring Boot systems. My work spans applied AI, machine learning, LLM-based systems, and intelligent automation. I am also the founding engineer of **Sparkience AI**, an open-source lab curating practical AI tooling for data developers.
+I am a **Packaged App Development Associate** at **Accenture**, having transitioned from intern to full-time engineer driving enterprise application development solutions. My work spans backend engineering with Spring Boot, applied AI, machine learning, LLM-based systems, and intelligent automation. I am also the founding engineer of **Sparkience AI**, an open-source lab curating practical AI tooling for data developers.
 
 **Core competencies:** Spring Boot · Python · Agentic AI · LLMs · Data Science · Open Source
 
@@ -104,11 +106,17 @@ Founding engineer of an open-source AI lab curating practical tools (RaTiO-CoRE,
 
 ### Experience
 
+**Packaged App Development Associate** — Accenture *(Oct 2025 – Present)*
+- Transitioned from intern to full-time engineer, driving enterprise application development solutions.
+
 **Java Developer Intern** — Accenture *(Feb 2025 – Jun 2025)*
 - Worked on a Spring-based enterprise application for a top automobile client.
 - Analyzed 10+ REST APIs, documented key components, and studied system integration flows.
 - Gained hands-on exposure to Hibernate, MySQL, Snowflake, Maven, and Jackson.
-- Completed Java Nanodegree Program via ATCI Stream (Udacity).
+- Acquired a Java Nanodegree Program via ATCI Stream (Udacity).
+
+**Data Science Intern** — Altair RapidMiner *(Jul 2024 – Sep 2024)*
+- Completed an AICTE-certified Data Science Master Virtual Internship.
 
 **Swecha Summer of AI Intern** — Swecha Org *(May 2024 – Jun 2024)*
 - Contributed to building Telugu-centric language models by submitting over 100 audio samples.
@@ -159,6 +167,28 @@ CGPA: 8.52
 
 **Foundations of Modern Machine Learning** — IIIT Hyderabad *(Aug 2023 – May 2024)*
 Grade: A | Covered k-NN, SVM, regression, clustering, PCA, neural networks, and deep learning fundamentals.
+
+---
+
+### Languages
+
+| Language | Proficiency |
+|---|---|
+| Telugu | Native |
+| English | Professional |
+| Kannada | Fluent |
+| Hindi | Conversational |
+
+---
+
+### Interests
+
+| Interest | Status |
+|---|---|
+| Data Science | Core Node Active |
+| Technology | Online |
+| Psychology | Synced |
+| Web Surfing | Receiving Data |
 
 ---
 
