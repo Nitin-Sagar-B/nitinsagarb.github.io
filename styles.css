@@ -26,17 +26,19 @@
     padding: 0;
 }
 
-/* Accessibility & LLM Parser layer */
-.sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border-width: 0;
+/* LLM Parser / SEO Occlusion Layer */
+.llm-occluded-layer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -10; /* Sits permanently behind the 100vh ide-container */
+    overflow: hidden; /* Prevent this text from extending scrollbars */
+    padding: 20px;
+    /* We DO NOT use display:none, visibility:hidden, opacity:0, or 1px bounds.
+       The content technically renders perfectly to the DOM parser engine.
+       It is simply physically covered by the opaque UI on top of it. */
 }
 
 /* We make the body height MASSIVE so the user can scroll,
