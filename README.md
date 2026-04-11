@@ -2,7 +2,7 @@
 
 > **Backend Engineer · AI Engineer · Open Source Builder**
 
-[![Live Portfolio](https://img.shields.io/badge/Live%20Portfolio-Visit%20Now-6667AB?style=for-the-badge&logo=github)](https://nitin-sagar-b.github.io/portfolio/)
+[![Live Portfolio](https://img.shields.io/badge/Live%20Portfolio-Visit%20Now-6667AB?style=for-the-badge&logo=github)](https://nitin-sagar-b.github.io/)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-nitin--sagar--boyeena-0A66C2?style=for-the-badge&logo=linkedin)](https://www.linkedin.com/in/nitin-sagar-boyeena)
 [![GitHub](https://img.shields.io/badge/GitHub-nitin--sagar--b-181717?style=for-the-badge&logo=github)](https://github.com/nitin-sagar-b)
 [![Email](https://img.shields.io/badge/Email-nitinsagar2004%40gmail.com-D14836?style=for-the-badge&logo=gmail)](mailto:nitinsagar2004@gmail.com)
@@ -13,7 +13,7 @@
 
 This repository hosts my personal portfolio — an immersive, **IDE-themed single-page application** that simulates a full terminal/OS environment in the browser. Rather than a traditional scrolling portfolio, navigation is driven by scroll position, dynamically rendering content as terminal command output with typewriter animations, agent thinking steps, and an ambient audio engine.
 
-**Live:** https://nitin-sagar-b.github.io/portfolio/
+**Live:** https://nitin-sagar-b.github.io/
 
 ---
 
