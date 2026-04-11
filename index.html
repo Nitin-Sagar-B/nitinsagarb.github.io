@@ -67,7 +67,9 @@
     <!-- ========================================== -->
     <!-- SEMANTIC SHADOW DOM FOR LLMS & SEO PARSERS -->
     <!-- ========================================== -->
-    <main id="llm-context" class="sr-only">
+    <!-- LLM/SEO OCCLUSION LAYER -->
+    <!-- Content physically exists, fully sized, fully rendered, but sits permanently behind the z-index of the IDE -->
+    <main id="llm-context" class="llm-occluded-layer">
         <h1>Nitin Sagar Boyeena - AI, Data Science & Backend Engineer</h1>
         <p>Welcome to my Agentic IDE portfolio. The visible UI is an interactive, JavaScript-based terminal simulation.
             Below is a full semantic representation of my experience, projects, and skills for search engines and LLM
