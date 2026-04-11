@@ -679,29 +679,6 @@ function renderServerLogStatic() {
     appendLogEntry('SYS_HALT', 'sys', '<span class="hl-cmd">EOF</span> --- TIMELINE MOUNTED SUCCESSFULLY ---', false);
 }
 
-// ==========================================
-// MOBILE: Sync terminal viewport bottom padding to input bar height
-// ==========================================
-(function syncMobileInputPadding() {
-    const mobileQuery = window.matchMedia('(max-width: 800px)');
-    const cmdLine = document.getElementById('active-command-line');
-
-    if (!cmdLine || !terminalViewport) return;
-
-    function applyPadding() {
-        if (mobileQuery.matches) {
-            terminalViewport.style.paddingBottom = cmdLine.offsetHeight + 'px';
-        } else {
-            terminalViewport.style.paddingBottom = '';
-        }
-    }
-
-    const ro = new ResizeObserver(applyPadding);
-    ro.observe(cmdLine);
-    mobileQuery.addEventListener('change', applyPadding);
-    applyPadding();
-})();
-
 function appendLogEntry(time, type, message, isFiller) {
     const entry = document.createElement('div');
     entry.className = 'log-entry';
