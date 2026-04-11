@@ -863,7 +863,7 @@ body {
 
     /* Sticky Mobile Native Chat Prompt */
     #terminal-viewport {
-        padding: 10px 8px 90px 8px;
+        padding: 10px 8px 10px 8px;
         font-size: clamp(0.7rem, 2.8vw, 0.9rem); 
         position: relative;
         -webkit-overflow-scrolling: touch;
