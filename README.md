@@ -1,6 +1,6 @@
-# Nitin Sagar B — Agentic Copilot OS v2.0
+# Nitin Sagar B — [Portfolio website] Agentic Copilot OS v2.0
 
-> **Backend Engineer · AI Engineer · Open Source Builder**
+> **Backend Developer (Springboot) · AI & Data Science Engineer · Open Source Builder**
 
 [![Live Portfolio](https://img.shields.io/badge/Live%20Portfolio-Visit%20Now-6667AB?style=for-the-badge&logo=github)](https://nitin-sagar-b.github.io/)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-nitin--sagar--boyeena-0A66C2?style=for-the-badge&logo=linkedin)](https://www.linkedin.com/in/nitin-sagar-boyeena)
@@ -39,7 +39,7 @@ This repository hosts my personal portfolio — an immersive, **IDE-themed singl
 
 ## About Me
 
-I am a **Packaged App Development Associate** at **Accenture**, having transitioned from intern to full-time engineer driving enterprise application development solutions. My work spans backend engineering with Spring Boot, applied AI, machine learning, LLM-based systems, and intelligent automation. I am also the founding engineer of **Sparkience AI**, an open-source lab curating practical AI tooling for data developers.
+I am a **Backend Developer** at **Accenture**, having transitioned from intern to full-time engineer driving enterprise application development solutions. My work spans backend engineering with Spring Boot, applied AI, machine learning, LLM-based systems, and intelligent automation. I am also the founding engineer of **Sparkience AI**, an open-source lab curating practical AI tooling for data developers.
 
 **Core competencies:** Spring Boot · Python · Agentic AI · LLMs · Data Science · Open Source
 
@@ -129,11 +129,11 @@ Founding engineer of an open-source AI lab curating practical tools (RaTiO-CoRE,
 
 | Certification | Issuer | Date |
 |---|---|---|
+| [Reinvention with Agentic AI](https://www.credly.com/badges/8d116ab5-9403-45ac-895f-7fc654f9fc78) | Accenture / Credly | March 2026 |
 | [Prompt Engineering and Programming with OpenAI](https://badges.plus.columbia.edu/e54935d1-2566-44a9-ac28-3f13796e2acd) | Columbia University | Aug 2025 |
 | [Inspect Rich Documents with Gemini & RAG](https://www.credential.net/5ef2673f-0038-48d1-a80e-5ac9dbac08ee) | Google Cloud | Aug 2025 |
 | [Hugging Face Agents Course: Excellence](https://huggingface.co/datasets/agents-course/final-certificates/resolve/main/certificates/nit-sparky/2025-07-12.png) | Hugging Face | Jul 2025 |
-| [Learn AI Agents](https://www.coursera.org/account/accomplishments/verify/VMCS6N3SGHCM) | Coursera / Scrimba | 2025 |
-| [Reinvention with Agentic AI](https://www.credly.com/badges/8d116ab5-9403-45ac-895f-7fc654f9fc78) | Accenture / Credly | 2024 |
+| [Learn AI Agents](https://www.coursera.org/account/accomplishments/verify/VMCS6N3SGHCM) | Coursera / Scrimba | May 2025 |
 | Foundations in Modern Machine Learning | IIIT Hyderabad | Aug 2023 – May 2024 |
 
 ---
@@ -149,7 +149,7 @@ Founding engineer of an open-source AI lab curating practical tools (RaTiO-CoRE,
 
 ### Sparkience AI
 
-[Sparkience AI](https://github.com/Sparkience-AI) is an open-source AI lab focused on creating accessible, AI-driven solutions through natural language processing, machine learning, and ethical AI exploration.
+[Sparkience AI](https://github.com/Sparkience-AI) is an open-source AI lab focused on creating accessible, AI-driven solutions through natural language processing, machine learning, and ethical AI exploration. A few projects are listed below:
 
 | Project | Type | Description |
 |---|---|---|
@@ -198,9 +198,7 @@ Grade: A | Covered k-NN, SVM, regression, clustering, PCA, neural networks, and 
 |---|---|
 | LinkedIn | [linkedin.com/in/nitin-sagar-boyeena](https://www.linkedin.com/in/nitin-sagar-boyeena) |
 | GitHub | [github.com/nitin-sagar-b](https://github.com/nitin-sagar-b) |
-| Email | [nitinsagar2004@gmail.com](mailto:nitinsagar2004@gmail.com) |
 | X / Twitter | [twitter.com/nitinsagarb](https://twitter.com/nitinsagarb) |
-| Discord | [discord.gg/HKscyfKb](https://discord.gg/HKscyfKb) |
 
 ---
 
