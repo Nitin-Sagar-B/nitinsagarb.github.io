@@ -106,26 +106,65 @@ if (audioToggleBtn) {
 
 const telToggleBtn = document.getElementById('tel-toggle');
 const telSidebar = document.getElementById('telemetry-sidebar');
+const mobileOverlay = document.getElementById('mobile-overlay');
+const sidebarEl = document.querySelector('.sidebar');
+const mobileNavBtn = document.getElementById('mobile-nav-toggle');
+
 if (telToggleBtn && telSidebar) {
     telToggleBtn.addEventListener('click', () => {
         if (telSidebar.classList.contains('open')) {
             telSidebar.style.display = 'none';
             telSidebar.classList.remove('open');
             telToggleBtn.style.color = 'var(--accent-primary)';
+            if (mobileOverlay && window.innerWidth <= 800) mobileOverlay.classList.remove('active');
         } else {
             telSidebar.style.display = '';
             telSidebar.classList.add('open');
             telToggleBtn.style.color = 'var(--success)';
+
+            // On mobile, show overlay and block the other sheet
+            if (window.innerWidth <= 800) {
+                if (mobileOverlay) mobileOverlay.classList.add('active');
+                if (sidebarEl && sidebarEl.classList.contains('mobile-open')) {
+                    sidebarEl.classList.remove('mobile-open');
+                }
+            }
         }
     });
 }
 
 // Mobile Nav Toggle
-const mobileNavBtn = document.getElementById('mobile-nav-toggle');
-const sidebarEl = document.querySelector('.sidebar');
 if (mobileNavBtn && sidebarEl) {
     mobileNavBtn.addEventListener('click', () => {
+        const isOpening = !sidebarEl.classList.contains('mobile-open');
         sidebarEl.classList.toggle('mobile-open');
+
+        if (window.innerWidth <= 800 && mobileOverlay) {
+            if (isOpening) {
+                mobileOverlay.classList.add('active');
+                // Close telemetry sheet if open
+                if (telSidebar && telSidebar.classList.contains('open')) {
+                    telSidebar.style.display = 'none';
+                    telSidebar.classList.remove('open');
+                    if (telToggleBtn) telToggleBtn.style.color = 'var(--accent-primary)';
+                }
+            } else {
+                mobileOverlay.classList.remove('active');
+            }
+        }
+    });
+}
+
+// Close bottom sheets when clicking the overlay
+if (mobileOverlay) {
+    mobileOverlay.addEventListener('click', () => {
+        mobileOverlay.classList.remove('active');
+        if (sidebarEl) sidebarEl.classList.remove('mobile-open');
+        if (telSidebar && telSidebar.classList.contains('open')) {
+            telSidebar.style.display = 'none';
+            telSidebar.classList.remove('open');
+            if (telToggleBtn) telToggleBtn.style.color = 'var(--accent-primary)';
+        }
     });
 }
 
@@ -213,11 +252,53 @@ sidebarItems.forEach(item => {
         });
 
         // Hide sidebar automatically on mobile
-        if (window.innerWidth <= 800 && sidebarEl) {
-            sidebarEl.classList.remove('mobile-open');
+        if (window.innerWidth <= 800) {
+            if (sidebarEl) sidebarEl.classList.remove('mobile-open');
+            if (mobileOverlay) mobileOverlay.classList.remove('active');
         }
     });
 });
+
+// Add Enter key to execute next command
+window.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+        e.preventDefault();
+        if (isTyping) return; // Prevent skipping ahead while the agent is actively typing/thinking
+
+        const nextIndex = currentChapter + 1;
+        if (nextIndex < totalChapters) {
+            const targetScroll = nextIndex * window.innerHeight;
+            window.scrollTo({
+                top: targetScroll,
+                behavior: 'smooth'
+            });
+        }
+    }
+});
+
+// Terminal Viewport Mobile Tap to Advance
+if (terminalViewport) {
+    terminalViewport.addEventListener('click', (e) => {
+        // Only trigger on mobile to avoid preventing desktop text selection logic
+        if (window.innerWidth > 800) return;
+
+        // Ignore clicks on links or specific interactive chunks
+        if (e.target.tagName.toLowerCase() === 'a' ||
+            e.target.closest('.tab') ||
+            e.target.closest('.ide-header') ||
+            e.target.closest('.mobile-overlay')) return;
+
+        if (isTyping) return;
+
+        const nextIndex = currentChapter + 1;
+        if (nextIndex < totalChapters) {
+            window.scrollTo({
+                top: nextIndex * window.innerHeight,
+                behavior: 'smooth'
+            });
+        }
+    });
+}
 
 // Render everything before the current chapter INSTANTLY to simulate history
 function renderInstantHistory(targetIndex) {
@@ -362,14 +443,14 @@ function executeCommandFinal(index) {
         if (newBlock && newBlock.classList.contains('output-block')) {
             gsap.fromTo(newBlock.children, { y: 15, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, stagger: 0.1, ease: "power2.out" });
         }
-        
+
         // Pin header to top gracefully
         const activeCmds = terminalHistory.querySelectorAll('.command-line');
         if (activeCmds.length > 0) {
-            const lastCmd = activeCmds[activeCmds.length - 1]; 
+            const lastCmd = activeCmds[activeCmds.length - 1];
             setTimeout(() => {
                 lastCmd.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }, 50); 
+            }, 50);
         } else {
             scrollToBottom();
         }
@@ -385,7 +466,11 @@ function executeCommandFinal(index) {
                 ghostEl = document.getElementById('ghost-text');
             }
             if (ghostEl) {
-                ghostEl.textContent = `[Scroll down to execute: ${nextC.cmd}]`;
+                if (window.innerWidth <= 800) {
+                    ghostEl.textContent = `[TAP / Scroll]`;
+                } else {
+                    ghostEl.textContent = `[Press Enter or Scroll to execute: ${nextC.cmd}]`;
+                }
                 ghostEl.style.opacity = '1';
             }
         }
@@ -467,3 +552,147 @@ setInterval(() => {
         }
     }
 }, 1000);
+
+// ==========================================
+// SERVER LOG TIMELINE ENGINE
+// ==========================================
+const tabBash = document.getElementById('tab-bash');
+const tabServer = document.getElementById('tab-server');
+const bashViewport = document.getElementById('terminal-viewport');
+const serverViewport = document.getElementById('server-viewport');
+const serverLogStream = document.getElementById('server-log-stream');
+const terminalMain = document.querySelector('.terminal-main');
+
+const masterTimeline = [
+    { date: "Mar 2026", type: "init", text: "Earned Reinvention with Agentic AI certification (Accenture)", note: "Embraced the shift towards autonomous Agentic AI architectures." },
+    { date: "Jan 2026", type: "event", text: "Created repository 'SCM-assistant'" },
+    { date: "Oct 2025", type: "sys", text: "Promoted to Packaged App Development Associate at Accenture", note: "Transitioned from an intern to a full-time force multiplier." },
+    { date: "Sep 2025", type: "event", text: "Created repositories 'GFG-21-Days-21-Projects' & '100-days-2025'" },
+    { date: "Aug 2025", type: "event", text: "Created repository 'spark-insights'", note: "Built an autonomous AI data scientist agent for comprehensive EDA and ML model building." },
+    { date: "Aug 2025", type: "init", text: "Earned Columbia Prompt Engineering & Google Cloud Gemini certs" },
+    { date: "Jul 2025", type: "init", text: "Earned Hugging Face Agents Certificate", note: "Deep dive into open-source agent ecosystems." },
+    { date: "Jun 2025", type: "sys", text: "Concluded Java Developer Internship at Accenture", note: "Successfully delivered production-grade features in Spring Boot." },
+    { date: "Jun 2025", type: "init", text: "Graduated with BTech in AI & Data Science (CGPA: 8.52)" },
+    { date: "May 2025", type: "init", text: "Earned Learn AI Agents certification (ULSA)" },
+    { date: "Mar 2025", type: "event", text: "Created repository 'RaTiO-CoRE'" },
+    { date: "Feb 2025", type: "sys", text: "Started Java Developer Internship at Accenture", note: "Worked on robust enterprise-level backend systems." },
+    { date: "Jan 2025", type: "event", text: "Created repository 'DSSential-The-AI-Chief'" },
+    { date: "Dec 2024", type: "init", text: "Earned Oracle Database for Developers: Foundations cert" },
+    { date: "Nov 2024", type: "init", text: "Earned Career Essentials in Generative AI certification (Microsoft)" },
+    { date: "Nov 2024", type: "init", text: "Formalized the Sparkience AI Organization & Created 'Sparkle-AI'", note: "Established a central hub for all my AI and LLM projects." },
+    { date: "Oct 2024", type: "event", text: "Created 'PCI-data-story-of-Telangana' & 'communicate-using-markdown'" },
+    { date: "Sep 2024", type: "event", text: "Created repository 'SparkOllama'" },
+    { date: "Sep 2024", type: "sys", text: "Concluded Altair RapidMiner Internship" },
+    { date: "Aug 2024", type: "event", text: "Created repositories 'SparkDB' & 'SparkPrompt'" },
+    { date: "Aug 2024", type: "init", text: "Earned Principles of Generative AI certification (Infosys)" },
+    { date: "Jul 2024", type: "init", text: "Earned AWS Academy Cloud Foundations certification" },
+    { date: "Jul 2024", type: "sys", text: "Started Data Science Internship at Altair RapidMiner", note: "Engaged in an AICTE-certified Data Science Master Virtual Internship." },
+    { date: "Jul 2024", type: "sys", text: "Concluded Swecha Internship" },
+    { date: "Jun 2024", type: "init", text: "Earned Prompt Engineering for Developers certification (Infosys)" },
+    { date: "Jun 2024", type: "event", text: "Created repositories 'SparkDilemmaX' & 'SparkDocs'", note: "Built SparkDocs: an AI PDF analyzer using LangChain and Gemini." },
+    { date: "May 2024", type: "sys", text: "Started Summer of AI Internship at Swecha Telangana", note: "Contributed to cultural preservation through speech data collection." },
+    { date: "May 2024", type: "init", text: "Completed Foundations of Modern Machine Learning (Grade: A)", note: "Months of rigorous, hands-on ML coursework paid off." },
+    { date: "May 2024", type: "event", text: "Created repository 'flowscope'" },
+    { date: "Nov 2023", type: "event", text: "Created repository 'Resources'" },
+    { date: "Sep 2023", type: "event", text: "Created repository 'FMML_PROJECTS_AND_LABS'" },
+    { date: "Aug 2023", type: "sys", text: "Began Foundations of Modern Machine Learning at IIITH" },
+    { date: "Aug 2023", type: "init", text: "Published: 'Artificial Intelligence: A neoteric reach in Periodontics'", note: "Explored AI's massive potential in dental and healthcare domains." },
+    { date: "Jul 2023", type: "event", text: "Initialized nitin-sagar-b.github.io (Portfolio foundation)" },
+    { date: "May 2023", type: "sys", text: "Began developing FlowScope HybridFlow Framework", note: "Architected a hybrid framework for time series forecasting." },
+    { date: "May 2023", type: "event", text: "Created repository 'scratch.mit.edu-projects'" },
+    { date: "Dec 2021", type: "init", text: "Started BTech in Artificial Intelligence & Data Science at BVRIT" },
+];
+
+let serverLogRendered = false;
+
+if (tabBash && tabServer) {
+    tabBash.addEventListener('click', () => {
+        tabBash.classList.add('active');
+        tabServer.classList.remove('active');
+        bashViewport.style.display = 'block';
+        serverViewport.style.display = 'none';
+    });
+
+    tabServer.addEventListener('click', () => {
+        tabServer.classList.add('active');
+        tabBash.classList.remove('active');
+        serverViewport.style.display = 'block';
+        bashViewport.style.display = 'none';
+
+        if (!serverLogRendered) {
+            renderServerLogStatic();
+            serverLogRendered = true;
+        }
+    });
+}
+
+function renderServerLogStatic() {
+    serverLogStream.innerHTML = '';
+
+    let currentYear = null;
+
+    masterTimeline.forEach((item) => {
+        // Extract year
+        const itemYear = item.date.match(/\d{4}/)?.[0];
+        if (itemYear && itemYear !== currentYear) {
+            currentYear = itemYear;
+            const yearHeading = document.createElement('div');
+            yearHeading.className = 'hl-year';
+            yearHeading.innerHTML = `<span>[ ARCHIVE_INDEX: ${currentYear} ]</span>`;
+            serverLogStream.appendChild(yearHeading);
+
+            // Add a filler system log for the year change
+            appendLogEntry(`SYS_TIME_${currentYear}`, 'sys', `Mounting historical memory partition ${currentYear}...`, true);
+        }
+
+        // Agentic Syntax Highlighting for text
+        let formattedText = item.text;
+
+        // Highlight logic
+        formattedText = formattedText.replace(/Created repositories/g, '<span class="hl-cmd">git init --multi</span>');
+        formattedText = formattedText.replace(/Created repository/g, '<span class="hl-cmd">git init</span>');
+        formattedText = formattedText.replace(/'([^']+)'/g, '<span class="hl-repo">$1</span>'); // repos in single quotes
+        formattedText = formattedText.replace(/Earned/g, '<span class="hl-cmd">FETCH_CERT</span>');
+        formattedText = formattedText.replace(/Started/g, '<span class="hl-cmd">EXECUTE process</span>');
+        formattedText = formattedText.replace(/Concluded/g, '<span class="hl-cmd">KILL process</span>');
+        formattedText = formattedText.replace(/Graduated with/g, '<span class="hl-cmd">BUILD_SUCCESS</span>');
+        formattedText = formattedText.replace(/Completed/g, '<span class="hl-cmd">STATUS_OK</span>');
+        formattedText = formattedText.replace(/Initialized/g, '<span class="hl-cmd">BOOT_PROC</span>');
+
+        // Standard entity matching
+        const companies = ['Accenture', 'Altair RapidMiner', 'Swecha Telangana', 'Infosys', 'Microsoft', 'ULSA', 'BVRIT', 'IIITH'];
+        companies.forEach(company => {
+            const regex = new RegExp(company, "g");
+            formattedText = formattedText.replace(regex, `<span class="hl-company">${company}</span>`);
+        });
+
+        formattedText = formattedText.replace(/certification|cert|Certificate/gi, '<span class="hl-cert">$&</span>');
+
+        appendLogEntry(item.date, item.type, formattedText, false);
+
+        // Append note if it exists
+        if (item.note) {
+            appendLogEntry('', 'sys', `&#8627; <i>${item.note}</i>`, true);
+        }
+    });
+
+    appendLogEntry('SYS_HALT', 'sys', '<span class="hl-cmd">EOF</span> --- TIMELINE MOUNTED SUCCESSFULLY ---', false);
+}
+
+function appendLogEntry(time, type, message, isFiller) {
+    const entry = document.createElement('div');
+    entry.className = 'log-entry';
+    if (isFiller) {
+        entry.innerHTML = `
+            <span class="log-time">[${time}]</span>
+            <span class="log-message hl-comment">${message}</span>
+        `;
+    } else {
+        entry.innerHTML = `
+            <span class="log-time" style="color:var(--accent-secondary);">[${time}]</span>
+            <span class="log-type ${type}" style="min-width:65px;">${type.toUpperCase()}</span>
+            <span class="log-message" style="color:#d4d4d4;">${message}</span>
+        `;
+    }
+    serverLogStream.appendChild(entry);
+}
