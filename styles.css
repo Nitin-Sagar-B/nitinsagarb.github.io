@@ -26,6 +26,19 @@
     padding: 0;
 }
 
+/* Accessibility & LLM Parser layer */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
 /* We make the body height MASSIVE so the user can scroll,
    but we only visually show the .ide-container pinned to the screen */
 body {
@@ -566,6 +579,204 @@ body {
     gap: 20px;
 }
 
+/* Server Log Timeline Styles */
+#server-log-stream {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    line-height: 1.6;
+    color: var(--text-muted);
+    padding-bottom: 30px;
+}
+
+.log-entry {
+    margin-bottom: 6px;
+    display: flex;
+    gap: 15px;
+    padding: 4px 5px;
+    border-left: 2px solid transparent;
+    transition: all 0.2s;
+}
+
+.log-entry:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-left-color: var(--accent-primary);
+}
+
+@keyframes logFadeIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.log-time {
+    color: var(--accent-secondary);
+    white-space: nowrap;
+    min-width: 110px;
+}
+
+.log-type {
+    color: var(--accent-primary);
+    font-weight: bold;
+    min-width: 50px;
+}
+
+.log-type.sys { color: var(--success); }
+.log-type.event { color: #e1b400; }
+.log-type.init { color: #9f7aea; }
+
+.log-message {
+    color: var(--text-main);
+    word-break: break-word;
+}
+
+.log-message .highlight {
+    color: #fff;
+    font-weight: 600;
+}
+
+/* Agentic Timeline Keyword Highlights */
+.hl-cmd { color: #9f7aea; font-weight: bold; } /* Purple for actions */
+.hl-repo { color: #81e6d9; } /* Cyan for repos */
+.hl-company { color: #ecc94b; font-weight: bold; } /* Yellow for companies */
+.hl-cert { color: #48bb78; } /* Green for certs */
+.hl-comment { color: var(--text-muted); font-style: italic; }
+.hl-year { 
+    color: var(--accent-primary); 
+    font-weight: 900; 
+    font-size: 1.1rem; 
+    display: flex;
+    align-items: center;
+    padding: 15px 0 10px 0;
+    width: 100%;
+}
+.hl-year::before, .hl-year::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px dashed var(--bg-panel);
+    opacity: 0.5;
+}
+.hl-year::before {
+    margin-right: 15px;
+}
+.hl-year::after {
+    margin-left: 15px;
+}
+.hl-year span { /* Wrap text */
+    background: var(--bg-panel);
+    padding: 2px 10px;
+    border-radius: 4px;
+}
+
+/* Mobile Overlay Base */
+.mobile-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    z-index: 150;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+.mobile-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Linguistics Runtime Layout */
+.lang-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 5px;
+}
+.lang-item {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.lang-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.95rem;
+    font-family: var(--font-mono);
+}
+.lang-name { color: var(--text-main); font-weight: bold; }
+.lang-prof { font-weight: bold; }
+.lang-bar {
+    width: 100%;
+    height: 8px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 4px;
+    overflow: hidden;
+}
+.lang-fill {
+    height: 100%;
+    border-radius: 4px;
+    animation: slideRight 1.5s ease-out forwards;
+}
+
+@keyframes slideRight {
+    from { transform: translateX(-100%); }
+    to { transform: translateX(0); }
+}
+
+/* System Modules Grid */
+.system-modules-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+}
+.module-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    transition: border-color 0.3s, transform 0.2s;
+}
+.module-card:hover {
+    border-color: var(--accent-primary);
+    transform: translateY(-2px);
+}
+.module-icon {
+    font-size: 1.5rem;
+    color: var(--accent-secondary);
+    background: rgba(102, 103, 171, 0.1);
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+.module-data {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+.module-title {
+    font-weight: bold;
+    color: var(--text-main);
+    letter-spacing: 1px;
+    font-size: 0.95rem;
+}
+.module-status {
+    font-size: 0.75rem;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+}
+
+.mobile-fab {
+    display: none;
+}
+
 /* Responsive adjustments */
 @media screen and (max-width: 800px) {
 
@@ -574,32 +785,37 @@ body {
         display: block !important;
     }
 
-    .window-controls {
+    .window-controls,
+    .window-title,
+    #audio-toggle,
+    .window-status span:last-child {
         display: none !important;
     }
 
-    .window-title {
-        display: none !important;
-    }
-
-    /* Convert Explorer sidebar to an offcanvas overlay */
+    /* Convert Explorer sidebar to an iOS Bottom Sheet */
     .sidebar {
         display: flex !important;
         position: fixed;
-        left: -260px;
-        top: 35px;
-        /* below header */
-        height: calc(100vh - 65px);
+        left: 0;
+        bottom: -100%; /* Hidden below */
+        top: auto;
+        width: 100%;
+        height: 75vh;
         z-index: 200;
-        transition: left 0.3s ease;
-        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.8);
+        border-right: none;
+        border-top: 2px solid var(--accent-primary);
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
+        transition: bottom 0.3s cubic-bezier(0.1, 0.8, 0.3, 1);
+        box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.8);
     }
 
     .sidebar.mobile-open {
-        left: 0;
+        bottom: 0;
+        left: 0; /* Override old logic */
     }
 
-    /* Convert Telemetry sidebar to an right offcanvas overlay */
+    /* Convert Telemetry sidebar to an iOS Bottom Sheet */
     .telemetry-sidebar {
         display: none !important;
     }
@@ -607,28 +823,168 @@ body {
     .telemetry-sidebar.open {
         display: flex !important;
         position: fixed;
-        right: 0;
-        top: 35px;
-        height: calc(100vh - 65px);
+        left: 0;
+        bottom: -100%;
+        top: auto;
+        right: auto;
+        width: 100%;
+        height: 75vh;
         z-index: 200;
-        box-shadow: -2px 0 10px rgba(0, 0, 0, 0.8);
+        border-right: none;
+        border-top: 2px solid var(--success);
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
+        box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.8);
+        animation: slideUpSheet 0.3s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
     }
 
-    .terminal-viewport {
+    @keyframes slideUpSheet {
+        from { bottom: -100%; }
+        to { bottom: 0; }
+    }
+
+    /* Tabs iOS Segmented Control Refactor */
+    .terminal-tabs {
+        display: flex;
+        width: 100%;
+        border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    
+    .tab {
+        flex: 1;
+        justify-content: center;
+        text-align: center;
+        padding: 12px 10px;
+        border-radius: 0;
+        font-size: 0.95rem;
+    }
+
+    /* Sticky Mobile Native Chat Prompt */
+    #terminal-viewport {
+        padding: 10px 8px 120px 8px; /* Massive bottom padding so history scrolls under the sticky prompt */
+        font-size: clamp(0.7rem, 2.8vw, 0.9rem); 
+        position: relative;
+    }
+
+    #active-command-line {
+        position: fixed;
+        bottom: 40px; /* Offset to float above browser UI/footer */
+        left: 0;
+        width: 100%;
         padding: 15px;
-        /* smaller padding */
-        font-size: 0.85rem;
-        /* slightly smaller text */
+        background: rgba(18, 18, 20, 0.85);
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+        z-index: 100;
+        border-top: 1px solid rgba(255,255,255,0.05);
+        border-bottom: 1px solid rgba(255,255,255,0.05);
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        box-shadow: 0 -10px 30px rgba(0,0,0,0.5);
     }
 
-    .glow-title {
-        font-size: 1.5rem;
+    #ghost-text {
+        display: block !important;
+        flex-basis: 100%;
+        text-align: right;
+        font-size: 0.75rem;
+        color: var(--success); /* Green positive affordance to tap */
+        margin-top: 8px;
+        opacity: 0.8 !important;
+        animation: pulse 1.5s infinite; 
+    }
+
+    /* Swipeable Horizontal Data Cards (Terminal Grid) */
+    .term-table tbody {
+        display: flex;
+        flex-direction: row;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        gap: 15px;
+        padding-bottom: 10px;
+        /* Hides scrollbar natively */
+        scrollbar-width: none;
+    }
+    
+    .term-table tbody::-webkit-scrollbar {
+        display: none;
+    }
+    
+    .term-table tr {
+        flex: 0 0 85%; /* SWIPE THRESHOLD: 85% width cards */
+        scroll-snap-align: center;
+        background: rgba(255,255,255,0.03);
+        border-radius: 8px;
+        padding: 15px;
+        border-left: 3px solid var(--accent-primary);
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 0;
+    }
+
+    /* Native CSS Timeline on Mobile */
+    #server-log-stream {
+        border-left: 2px solid rgba(255,255,255,0.1);
+        margin-left: 10px;
+        padding-left: 15px;
+    }
+    
+    .log-entry {
+        background: rgba(255,255,255,0.03) !important;
+        border-radius: 6px;
+        padding: 12px;
+        margin-bottom: 20px;
+        border-bottom: none;
+        border-left: 3px solid var(--accent-secondary); 
+        position: relative;
+        flex-direction: column;
+        gap: 5px;
+    }
+    
+    .log-entry.hl-sys {
+        border-left-color: var(--warning);
+    }
+    
+    .hl-year {
+        margin-left: -32px; /* Pull pill over the timeline */
+        margin-bottom: 20px;
+        margin-top: 10px;
+        display: inline-flex;
+        background: var(--bg-dark);
+        border: 1px solid var(--accent-primary);
+        border-radius: 50px;
+        padding: 5px 15px;
+        font-size: 0.9rem;
+    }
+    
+    .hl-year::before, .hl-year::after {
+        display: none !important; /* Hide desktop lines */
+    }
+    
+    .hl-year span { /* Reset container */
+        background: transparent;
+        padding: 0;
+    }
+
+    /* Nodes on the timeline */
+    .log-entry::before {
+        content: '';
+        position: absolute;
+        left: -24px;
+        top: 15px;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: var(--accent-secondary);
+        box-shadow: 0 0 10px var(--accent-secondary);
     }
 
     .ide-footer {
         font-size: 0.65rem;
     }
 
+    /* Hide unnecessary footer metrics to save space */
     .footer-right span:nth-child(1),
     .footer-right span:nth-child(2) {
         display: none;
@@ -644,8 +1000,17 @@ body {
         font-size: 0.75rem;
     }
 
-    .term-table {
+    /* Convert Side-by-Side Tables to Stacked Mobile Columns */
+    .term-table tbody, .term-table tr {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    
+    .term-table td {
         display: block;
-        overflow-x: auto;
+        width: 100% !important;
+        padding: 2px 0 8px 0;
     }
 }
