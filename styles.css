@@ -863,15 +863,15 @@ body {
 
     /* Sticky Mobile Native Chat Prompt */
     #terminal-viewport {
-        padding: 10px 8px 120px 8px; /* Massive bottom padding so history scrolls under the sticky prompt */
+        padding: 10px 8px 10px 8px;
         font-size: clamp(0.7rem, 2.8vw, 0.9rem); 
         position: relative;
+        -webkit-overflow-scrolling: touch;
     }
 
     #active-command-line {
-        position: fixed;
-        bottom: 40px; /* Offset to float above browser UI/footer */
-        left: 0;
+        position: sticky;
+        bottom: 0;
         width: 100%;
         padding: 15px;
         background: rgba(18, 18, 20, 0.85);
