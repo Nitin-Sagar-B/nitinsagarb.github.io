@@ -3,6 +3,34 @@ const typewriterElement = document.getElementById('typewriter');
 const promptDir = document.getElementById('prompt-dir');
 const terminalViewport = document.getElementById('terminal-viewport');
 
+// Guard against missing critical elements
+if (!terminalHistory || !typewriterElement || !promptDir || !terminalViewport) {
+    console.error('[AgentOS] Critical DOM elements missing. Aborting boot sequence.');
+}
+
+// ==========================================
+// BOOT SEQUENCE
+// ==========================================
+(function initBootSequence() {
+    const bootScreen = document.getElementById('boot-screen');
+    if (!bootScreen) return;
+
+    // Skip boot on return visits within the same session
+    if (sessionStorage.getItem('abstractos-booted')) {
+        bootScreen.remove();
+        return;
+    }
+
+    // Total animation time: ~3.1s (last line at 2.1s + progress 0.9s + 0.1s buffer)
+    const BOOT_DURATION = 3200;
+    setTimeout(() => {
+        bootScreen.classList.add('fade-out');
+        sessionStorage.setItem('abstractos-booted', '1');
+        // Remove from DOM after fade completes
+        setTimeout(() => bootScreen.remove(), 600);
+    }, BOOT_DURATION);
+})();
+
 const sidebarItems = document.querySelectorAll('.sidebar .folder, .sidebar .file');
 
 // ==========================================
@@ -116,11 +144,13 @@ if (telToggleBtn && telSidebar) {
             telSidebar.style.display = 'none';
             telSidebar.classList.remove('open');
             telToggleBtn.style.color = 'var(--accent-primary)';
+            stopTelemetryLoop();
             if (mobileOverlay && window.innerWidth <= 800) mobileOverlay.classList.remove('active');
         } else {
             telSidebar.style.display = '';
             telSidebar.classList.add('open');
             telToggleBtn.style.color = 'var(--success)';
+            startTelemetryLoop();
 
             // On mobile, show overlay and block the other sheet
             if (window.innerWidth <= 800) {
@@ -378,7 +408,7 @@ function executeThinkingSteps(index, c) {
         "Analyzing user context...", "Extracting parameters...",
         "Establishing secure connection...", "Querying database...",
         "Validating cache...", "Compiling neural pathways...",
-        "Executing core rutines..."
+        "Executing core routines..."
     ];
 
     // Choose randomly how many steps (1 to 3)
@@ -438,10 +468,16 @@ function executeCommandFinal(index) {
         // We clone and stagger children for nice animation
         terminalHistory.insertAdjacentHTML('beforeend', outputTemplate.innerHTML);
 
-        // Add staggered animation strictly to the newly added block
+        // Add staggered animation strictly to the newly added block (native Web Animations API)
         const newBlock = terminalHistory.lastElementChild;
         if (newBlock && newBlock.classList.contains('output-block')) {
-            gsap.fromTo(newBlock.children, { y: 15, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, stagger: 0.1, ease: "power2.out" });
+            Array.from(newBlock.children).forEach((child, i) => {
+                child.animate(
+                    [{ opacity: 0, transform: 'translateY(15px)' }, { opacity: 1, transform: 'translateY(0)' }],
+                    { duration: 400, delay: i * 100, easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)', fill: 'forwards' }
+                );
+                child.style.opacity = '0'; // start hidden, animation fills forwards
+            });
         }
 
         // Pin header to top gracefully
@@ -519,39 +555,52 @@ const logMessages = [
     "sys: memory dumped"
 ];
 
-setInterval(() => {
-    if (!sysClock) return; // fail safe if elements missing
-    // Clock
-    const now = new Date();
-    sysClock.textContent = now.toISOString().substring(11, 23); // HH:MM:SS.mmm
+// Only run telemetry tick when the sidebar is actually visible
+let telemetryIntervalId = null;
 
-    // CPU Fluctuate (20% to 90%)
-    let currentCpu = Math.random() * 70 + 20;
-    cpuBar.style.width = currentCpu + '%';
-    cpuVal.textContent = currentCpu.toFixed(1) + '%';
-    cpuVal.style.color = currentCpu > 80 ? 'var(--error)' : 'var(--success)';
+function startTelemetryLoop() {
+    if (telemetryIntervalId) return; // already running
+    telemetryIntervalId = setInterval(() => {
+        if (!sysClock) return;
+        // Clock
+        const now = new Date();
+        sysClock.textContent = now.toISOString().substring(11, 23);
 
-    // Mem fluctuate slightly (35G to 45G out of 64G)
-    let memoryGIGS = Math.random() * 10 + 35;
-    memBar.style.width = (memoryGIGS / 64 * 100) + '%';
-    memVal.textContent = memoryGIGS.toFixed(1) + 'G Used';
+        // CPU Fluctuate (20% to 90%)
+        let currentCpu = Math.random() * 70 + 20;
+        cpuBar.style.width = currentCpu + '%';
+        cpuVal.textContent = currentCpu.toFixed(1) + '%';
+        cpuVal.style.color = currentCpu > 80 ? 'var(--error)' : 'var(--success)';
 
-    // Network Tx Rx
-    netTx.textContent = Math.floor(Math.random() * 80 + 5);
-    netRx.textContent = Math.floor(Math.random() * 200 + 10);
+        // Mem fluctuate slightly (35G to 45G out of 64G)
+        let memoryGIGS = Math.random() * 10 + 35;
+        memBar.style.width = (memoryGIGS / 64 * 100) + '%';
+        memVal.textContent = memoryGIGS.toFixed(1) + 'G Used';
 
-    // Occasionally add to mini-log
-    if (Math.random() > 0.7 && miniLog) {
-        const logLine = logMessages[Math.floor(Math.random() * logMessages.length)];
-        miniLog.innerHTML += `<br>${logLine}`;
+        // Network Tx Rx
+        netTx.textContent = Math.floor(Math.random() * 80 + 5);
+        netRx.textContent = Math.floor(Math.random() * 200 + 10);
 
-        // Count number of <br> tags roughly to prune
-        const lines = miniLog.innerHTML.split('<br>');
-        if (lines.length > 6) {
-            miniLog.innerHTML = lines.slice(lines.length - 6).join('<br>'); // keep last 5 lines
+        // Occasionally add to mini-log using DOM methods (avoids innerHTML reparse)
+        if (Math.random() > 0.7 && miniLog) {
+            const logLine = logMessages[Math.floor(Math.random() * logMessages.length)];
+            miniLog.appendChild(document.createElement('br'));
+            miniLog.appendChild(document.createTextNode(logLine));
+
+            // Prune: keep max ~12 child nodes (6 lines × 2 nodes each)
+            while (miniLog.childNodes.length > 12) {
+                miniLog.removeChild(miniLog.firstChild);
+            }
         }
+    }, 1000);
+}
+
+function stopTelemetryLoop() {
+    if (telemetryIntervalId) {
+        clearInterval(telemetryIntervalId);
+        telemetryIntervalId = null;
     }
-}, 1000);
+}
 
 // ==========================================
 // SERVER LOG TIMELINE ENGINE
@@ -695,4 +744,42 @@ function appendLogEntry(time, type, message, isFiller) {
         `;
     }
     serverLogStream.appendChild(entry);
+}
+
+// ==========================================
+// TIME-AWARE GREETING (injected into tpl-0)
+// ==========================================
+(function injectTimeGreeting() {
+    const tpl0 = document.getElementById('tpl-0');
+    if (!tpl0) return;
+
+    const hour = new Date().getHours();
+    let greeting;
+
+    if (hour >= 5 && hour < 12) {
+        greeting = '> Good morning. Initializing daily workflow...';
+    } else if (hour >= 12 && hour < 17) {
+        greeting = '> Afternoon session active. Running inference pipelines...';
+    } else if (hour >= 17 && hour < 22) {
+        greeting = '> Evening mode. Reviewing pull requests...';
+    } else {
+        greeting = `> System Status: Still coding at ${new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', timeZoneName: 'short' })}. Agent never sleeps.`;
+    }
+
+    // Inject into the template content
+    const greetingEl = tpl0.content.getElementById('time-greeting');
+    if (greetingEl) {
+        greetingEl.textContent = greeting;
+    }
+})();
+
+// ==========================================
+// PWA SERVICE WORKER REGISTRATION
+// ==========================================
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+            .then(reg => console.log('[AgentOS] Service Worker registered. Scope:', reg.scope))
+            .catch(err => console.warn('[AgentOS] SW registration failed:', err));
+    });
 }
