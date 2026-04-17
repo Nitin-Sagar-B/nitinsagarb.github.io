@@ -1166,4 +1166,39 @@ body {
         overflow-x: auto;
         font-size: 0.75rem;
     }
+
+    /* Certifications – clean stacked layout on mobile */
+    .no-bullet li {
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+        padding: 10px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        line-height: 1.5;
+    }
+
+    .no-bullet li:last-child {
+        border-bottom: none;
+    }
+
+    .no-bullet li .cert-link {
+        font-size: 0.9rem;
+    }
+
+    .no-bullet li .dim {
+        font-size: 0.75rem;
+        display: block;
+        margin-top: 2px;
+    }
+
+    /* Contact – prevent URL overflow */
+    .bullet-list a.cert-link {
+        word-break: break-all;
+        font-size: 0.85rem;
+    }
+
+    .bullet-list li {
+        line-height: 1.5;
+        margin-bottom: 10px;
+    }
 }
