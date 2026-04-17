@@ -197,8 +197,6 @@ Grade: A | Covered k-NN, SVM, regression, clustering, PCA, neural networks, and 
 |---|---|
 | LinkedIn | [linkedin.com/in/nitin-sagar-boyeena](https://www.linkedin.com/in/nitin-sagar-boyeena) |
 | GitHub | [github.com/nitin-sagar-b](https://github.com/nitin-sagar-b) |
-| X / Twitter | [twitter.com/nitinsagarb](https://twitter.com/nitinsagarb) |
-
 ---
 
 ## License
