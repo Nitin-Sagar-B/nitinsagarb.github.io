@@ -1,0 +1,19 @@
+{
+  "name": "Nitin Sagar B — Agentic IDE Portfolio",
+  "short_name": "AgentOS",
+  "description": "Interactive Agentic OS Terminal portfolio showcasing AI, Data Science & Backend engineering.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0B0C10",
+  "theme_color": "#0B0C10",
+  "orientation": "any",
+  "categories": ["portfolio", "developer tools"],
+  "icons": [
+    {
+      "src": "image.png",
+      "sizes": "200x200",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
