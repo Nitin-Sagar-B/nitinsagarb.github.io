@@ -1,11 +1,13 @@
 // AbstractOS Service Worker — Offline Cache Strategy
-const CACHE_NAME = 'abstractos-v3';
+const CACHE_NAME = 'abstractos-v4';
 const ASSETS_TO_CACHE = [
     '/',
     '/index.html',
     '/styles.css',
     '/scripts.js',
     '/image.png',
+    '/icon-192.png',
+    '/icon-512.png',
     '/manifest.json',
     '/og-preview.png'
 ];
